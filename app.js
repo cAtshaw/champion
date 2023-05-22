@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const appSettings = {
     databaseURL: "https://champions-68a2d-default-rtdb.europe-west1.firebasedatabase.app/"
@@ -15,16 +15,20 @@ const endorsementOutput = ref(database, "endorse")
 const endorsementInput = document.getElementById("endorseinput")
 const publishButton = document.getElementById("publishbtn")
 const endorsementMessage = document.getElementById("endorsemessage")
-
-
+const fromInput = document.getElementById("frominput")
+const toInput = document.getElementById("toinput")
 
 
 publishButton.addEventListener("click", function () {
     let endorseValue = endorsementInput.value
+    let fromValue = fromInput.value
+    let toValue = toInput.value
 
+
+    clearToInput()
     clearEndorsementMessage()
-
-    push(endorsementOutput, endorseValue)
+    clearFromInput()
+    push(endorsementOutput, endorseValue, fromValue, toValue)
 })
 
 onValue(endorsementOutput, function (snapshot) {
@@ -42,18 +46,23 @@ onValue(endorsementOutput, function (snapshot) {
             listMyEndorsementsInDB(endorseArray[i])
         }
     } else {
-        endorsementMessage.innerHTML = "No endorsements yet..."
+        endorsementMessage.innerHTML = "Please write an endorsement for your colleague..."
     }
 
 
 })
 
-function clearEndorsement() {
-    endorsementMessage.innerHTML = ""
+function clearToInput() {
+    toInput.value = ""
 }
-
+function clearFromInput() {
+    fromInput.value = ""
+}
 function clearEndorsementMessage() {
     endorsementInput.value = ""
+}
+function clearEndorsement() {
+    endorsementMessage.innerHTML = ""
 }
 
 

@@ -44,6 +44,39 @@ body {
   font-family: "Josefin Sans", sans-serif;
 }
 
+#frominput {
+  color: white;
+  outline: none;
+  resize: none;
+  box-sizing: border-box;
+  padding: 10px;
+  white-space: normal;
+  font-size: 15px;
+  width: 147px;
+  height: 35px;
+  background-color: #444059;
+  border-radius: 6px;
+  border: none;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+#toinput {
+  margin-top: 6px;
+  color: white;
+  outline: none;
+  resize: none;
+  box-sizing: border-box;
+  padding: 10px;
+  white-space: normal;
+  font-size: 15px;
+  width: 147px;
+  height: 35px;
+  background-color: #444059;
+  border-radius: 6px;
+  border: none;
+  font-family: "Josefin Sans", sans-serif;
+}
+
 #publishbtn {
   box-sizing: border-box;
   font-family: "Josefin Sans", sans-serif;
@@ -56,6 +89,10 @@ body {
   border: none;
   font-weight: 700;
   font-size: 20px;
+}
+
+#publishbtn:hover {
+  background-color: aqua;
 }
 
 #endorsetitle {
@@ -75,9 +112,11 @@ ul {
   flex-wrap: wrap;
   margin-top: 10px;
   width: 300px;
+  color: white;
 }
 
 ul li {
+  color: #1b1924;
   margin-top: 10px;
   font-size: medium;
   text-align: center;
