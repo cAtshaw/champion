@@ -1,32 +1,58 @@
-import { initialiseApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const appSettings = {
     databaseURL: "https://champions-68a2d-default-rtdb.europe-west1.firebasedatabase.app/"
 }
 
-const app = initialiseApp(appSettings)
+
+const app = initializeApp(appSettings)
 const database = getDatabase(app)
 const endorsementOutput = ref(database, "endorse")
+
+
 
 const endorsementInput = document.getElementById("endorseinput")
 const publishButton = document.getElementById("publishbtn")
 const endorsementMessage = document.getElementById("endorsemessage")
 
-endorsementInput.addEventListener("click", function () {
 
-})
+
 
 publishButton.addEventListener("click", function () {
-    let publishValue = 
+    let endorseValue = endorsementInput.value
+
+    clearEndorsementMessage()
+
+    push(endorsementOutput, endorseValue)
+})
+
+onValue(endorsementOutput, function (snapshot) {
+
+
+    if (snapshot.exists()) {
+        let endorseArray = Object.entries(snapshot.val())
+
+        clearEndorsement()
+
+        for (let i = 0; i < endorseArray.length; i++) {
+            let currentEndorse = endorseArray[i]
+            let currentEndorseID = currentEndorse[0]
+            let currentEndorseValue = currentEndorse[1]
+            listMyEndorsementsInDB(endorseArray[i])
+        }
+    } else {
+        endorsementMessage.innerHTML = "No endorsements yet..."
+    }
+
+
 })
 
 function clearEndorsement() {
     endorsementMessage.innerHTML = ""
 }
 
-function clearEndorsementInput() {
+function clearEndorsementMessage() {
     endorsementInput.value = ""
 }
 
@@ -38,8 +64,15 @@ function listMyEndorsementsInDB(endorsement) {
     let newEl = document.createElement("li")
 
     newEl.addEventListener("dblclick", function () {
+
         let exactLocationOfEndorsementInDB = ref(database, `endorse/${endorseID}`)
+
+        remove(exactLocationOfEndorsementInDB)
     })
+
+    newEl.textContent = endorseValue
+
+    endorsementMessage.append(newEl)
 }
 
 
