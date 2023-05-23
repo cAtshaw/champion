@@ -11,7 +11,6 @@ const database = getDatabase(app)
 const endorsementOutput = ref(database, "endorse")
 
 
-
 const endorsementInput = document.getElementById("endorseinput")
 const publishButton = document.getElementById("publishbtn")
 const endorsementMessage = document.getElementById("endorsemessage")
@@ -31,9 +30,8 @@ publishButton.addEventListener("click", function () {
     push(endorsementOutput, endorseValue, fromValue, toValue)
 })
 
+
 onValue(endorsementOutput, function (snapshot) {
-
-
     if (snapshot.exists()) {
         let endorseArray = Object.entries(snapshot.val())
 
@@ -48,9 +46,11 @@ onValue(endorsementOutput, function (snapshot) {
     } else {
         endorsementMessage.innerHTML = "Please write an endorsement for your colleague..."
     }
-
-
 })
+
+
+
+// CLEAR FUNCTIONS
 
 function clearToInput() {
     toInput.value = ""
@@ -64,6 +64,10 @@ function clearEndorsementMessage() {
 function clearEndorsement() {
     endorsementMessage.innerHTML = ""
 }
+
+
+
+//LISTING FUNCTION
 
 
 function listMyEndorsementsInDB(endorsement) {
