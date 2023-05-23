@@ -82,6 +82,7 @@ function listMyEndorsementsInDB(endorsement) {
     newEl.textContent = endorseValue
 
     endorsementMessage.append(newEl)
+
 }
 
 
